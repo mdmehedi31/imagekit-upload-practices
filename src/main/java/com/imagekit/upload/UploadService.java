@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Upload {
+public class UploadService {
 
-    private static final Logger log = LoggerFactory.getLogger(Upload.class);
+    private static final Logger log = LoggerFactory.getLogger(UploadService.class);
 
     private String publicKey;
     private String privateKey;
     private String endpointUrl;
-    public Upload( @Value("${IMAGEKIT.PUBLIC.KEY}") String publicKey,
-                   @Value("${IMAGEKIT.PRIVATE.KEY}") String privateKey,
-                   @Value("${IMAGEKIT.ENDPOINT.URL}") String endpointUrl) {
+    public UploadService(@Value("${IMAGEKIT.PUBLIC.KEY}") String publicKey,
+                         @Value("${IMAGEKIT.PRIVATE.KEY}") String privateKey,
+                         @Value("${IMAGEKIT.ENDPOINT.URL}") String endpointUrl) {
 
 
         this.publicKey = publicKey;
@@ -30,6 +30,8 @@ public class Upload {
 
 
     public ImageKit setConfiguration() {
+
+        log.info("====>>>> Public Key: " + publicKey+", Private Key: " + privateKey+", Endpoint URL: " + endpointUrl);
         ImageKit imageKit = ImageKit.getInstance();
         Configuration configuration = new Configuration(publicKey,privateKey,endpointUrl);
         imageKit.setConfig(configuration);
